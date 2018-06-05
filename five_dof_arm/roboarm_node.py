@@ -12,16 +12,19 @@ import Adafruit_PCA9685
 #logging.basicConfig(level=logging.DEBUG)
 
 # Initialise the PCA9685 using the default address (0x40).
-#pwm = Adafruit_PCA9685.PCA9685()
+pwm = Adafruit_PCA9685.PCA9685()
 # Configure min and max servo pulse lengths
 servo_min = 150  # Min pulse length out of 4096
 servo_max = 600  # Max pulse length out of 4096
 # Set frequency to 60hz, good for servos.
-#pwm.set_pwm_freq(60)
+pwm.set_pwm_freq(60)
 def callback(msg):
 #    (msg.position[o] * 180)/math.pi
-#    pwm.set_pwm(0, 0, ((msg.position[o] * 180)/math.pi)*2.5)
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", (msg.position[0] * 180)/math.pi)
+	pwm.set_pwm(0, 0, (150 + int(((msg.position[0] * 180)/math.pi)*2.5)))
+	pwm.set_pwm(1, 0, (150 + int(((msg.position[1] * 180)/math.pi)*2.5)))
+	pwm.set_pwm(2, 0, (150 + int(((msg.position[2] * 180)/math.pi)*2.5)))
+	pwm.set_pwm(3, 0, (150 + int(((msg.position[3] * 180)/math.pi)*2.5)))
+	rospy.loginfo(rospy.get_caller_id() + "I heard %s", int(((msg.position[0] * 180)/math.pi)*2.5))
 
 def listener():
 
