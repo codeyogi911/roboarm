@@ -34,7 +34,7 @@ int main(int argc, char **argv){
   pub4 = n.advertise<std_msgs::Float64>("servo_4_1_position", 100);
   
   // Subscribing to the joint_state_publisher.
-  ros::Subscriber sub = n.subscribe("five_dof_arm/joint_states", 10000, callback);
+  ros::Subscriber sub = n.subscribe("/joint_states", 10000, callback);
   ros::spin();
   return 0;
 }
